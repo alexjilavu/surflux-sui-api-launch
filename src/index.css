@@ -1,58 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Surflux Design System - Developer-first SaaS landing page */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Brand Colors - Surflux Aqua Electric & Sea Turquoise */
+    --surflux-aqua: 189 100% 47%;      /* #00E0FF */
+    --surflux-turquoise: 175 100% 56%; /* #40E0D0 */
+    
+    /* Background System */
+    --background: 0 0% 100%;           /* Pure white */
+    --background-gradient-start: 0 0% 96%;  /* #f5f5f5 */
+    --background-gradient-end: 0 0% 100%;   /* #ffffff */
+    
+    /* Text Colors */
+    --foreground: 222 20% 12%;         /* Dark text */
+    --foreground-muted: 222 10% 45%;   /* Muted text */
+    --foreground-light: 222 8% 65%;    /* Light text */
+    
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --card-foreground: 222 20% 12%;
+    --card-dark: 222 15% 8%;           /* Dark cards for contrast */
+    --card-dark-foreground: 0 0% 98%;
+    
+    /* Interactive Elements */
+    --primary: 189 100% 47%;           /* Aqua Electric */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 189 100% 42%;
+    
+    --secondary: 175 100% 56%;         /* Sea Turquoise */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 175 100% 51%;
+    
+    /* Gradient System */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--surflux-aqua)), hsl(var(--surflux-turquoise)));
+    --gradient-primary-hover: linear-gradient(135deg, hsl(var(--primary-hover)), hsl(var(--secondary-hover)));
+    --gradient-background: linear-gradient(180deg, hsl(var(--background-gradient-start)) 0%, hsl(var(--background-gradient-end)) 50%, hsl(var(--background-gradient-start)) 100%);
+    
+    /* Interactive States */
+    --muted: 222 12% 95%;
+    --muted-foreground: 222 10% 45%;
+    --accent: 189 100% 97%;
+    --accent-foreground: 189 100% 25%;
+    
+    /* Borders & Inputs */
+    --border: 222 10% 90%;
+    --input: 222 10% 94%;
+    --ring: 189 100% 47%;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-gradient: 0 10px 30px -5px hsl(var(--surflux-aqua) / 0.2);
+    
+    /* Animation */
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -100,6 +111,61 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+    background: var(--gradient-background);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-inter font-semibold tracking-tight;
+  }
+  
+  code, pre {
+    @apply font-mono;
+  }
+}
+
+@layer components {
+  /* Gradient Button Variants */
+  .btn-gradient {
+    background: var(--gradient-primary);
+    @apply text-white font-medium px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg;
+    box-shadow: var(--shadow-gradient);
+  }
+  
+  .btn-gradient:hover {
+    background: var(--gradient-primary-hover);
+    transform: translateY(-1px);
+  }
+  
+  /* Dark Card Variants for Contrast */
+  .card-dark {
+    background: hsl(var(--card-dark));
+    color: hsl(var(--card-dark-foreground));
+    @apply border border-white/10;
+  }
+  
+  /* Code Window Styling */
+  .code-window {
+    @apply bg-gray-900 text-green-400 p-6 rounded-xl font-mono text-sm;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Typing Animation */
+  .typing-cursor::after {
+    content: '|';
+    @apply animate-pulse;
+  }
+  
+  /* Bento Box Grid */
+  .bento-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+  
+  /* Metric Cards */
+  .metric-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-xl p-6;
+    box-shadow: var(--shadow-md);
   }
 }
